@@ -10,6 +10,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTreeModule } from '@angular/material/tree';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgIf } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -33,6 +34,7 @@ import { MantainerModule } from './mantainers/mantainer.module';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
+    MatTreeModule,
     MatListModule,
     NgIf
   ],
