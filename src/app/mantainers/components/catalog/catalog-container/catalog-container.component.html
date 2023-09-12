@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-card-content>
+        <h1>Catalogs</h1>
+        <mat-divider></mat-divider>
+        <app-catalog-search></app-catalog-search>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [(selectedIndex)]="tabIndex">>
+            <mat-tab label="List"><app-catalog-list (focusTabEvent)="focusTab($event)"></app-catalog-list></mat-tab>
+            <mat-tab label="Form"><app-catalog-form (focusTabEvent)="focusTab($event)"></app-catalog-form></mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+    <mat-card-actions align="end" *ngIf="tabIndex == 0">
+        <button mat-raised-button color="primary" type="button" (click)="focusTab(1)">Create</button>
+    </mat-card-actions>
+</mat-card>

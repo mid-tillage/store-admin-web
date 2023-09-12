@@ -1,0 +1,9 @@
+.mat-tab-group {
+    margin-bottom: 48px;
+}
+
+mat-card {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
