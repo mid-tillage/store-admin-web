@@ -18,10 +18,8 @@ export class CatalogListComponent implements OnInit {
 
   message: string = '';
 
-  // public catalogs: Catalog[] = [];
   public catalogs = new MatTableDataSource<Catalog>([]);
   public displayedColumns: string[] = ['id', 'name', 'actions'];
-  // public dialogRef: MdDialogRef<ConfirmActionComponent>;
 
   constructor(
     private readonly catalogService: CatalogService,

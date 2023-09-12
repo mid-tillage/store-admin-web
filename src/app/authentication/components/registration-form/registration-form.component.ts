@@ -95,7 +95,6 @@ export class RegistrationFormComponent {
   onSubmit(): void {
     const user: User = new User(this.addressForm.value);
     console.log(user);
-    // this.userService.postUser();
     alert('Thanks!');
   }
 }

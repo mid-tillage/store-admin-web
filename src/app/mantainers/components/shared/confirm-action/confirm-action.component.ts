@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface DialogData {
-  // id: number;
   name: string;
 }
 
@@ -17,7 +16,4 @@ export class ConfirmActionComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) { }
 
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
 }
