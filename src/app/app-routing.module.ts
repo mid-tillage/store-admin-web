@@ -10,13 +10,13 @@ import { CatalogFormComponent } from './mantainers/components/catalog/catalog-fo
 import { CatalogContainerComponent } from './mantainers/components/catalog/catalog-container/catalog-container.component';
 import { EnterpriseListComponent } from './mantainers/components/enterprise/enterprise-list/enterprise-list.component';
 import { EnterpriseFormComponent } from './mantainers/components/enterprise/enterprise-form/enterprise-form.component';
-import { EnterpriseDashboardComponent } from './mantainers/components/enterprise/enterprise-dashboard/enterprise-dashboard.component';
+import { EnterpriseContainerComponent } from './mantainers/components/enterprise/enterprise-container/enterprise-container.component';
 import { ProductListComponent } from './mantainers/components/product/product-list/product-list.component';
 import { ProductFormComponent } from './mantainers/components/product/product-form/product-form.component';
-import { ProductDashboardComponent } from './mantainers/components/product/product-dashboard/product-dashboard.component';
+import { ProductContainerComponent } from './mantainers/components/product/product-container/product-container.component';
 import { ProductOnSaleListComponent } from './mantainers/components/product-on-sale/product-on-sale-list/product-on-sale-list.component';
 import { ProductOnSaleFormComponent } from './mantainers/components/product-on-sale/product-on-sale-form/product-on-sale-form.component';
-import { ProductOnSaleDashboardComponent } from './mantainers/components/product-on-sale/product-on-sale-dashboard/product-on-sale-dashboard.component';
+import { ProductOnSaleContainerComponent } from './mantainers/components/product-on-sale/product-on-sale-container/product-on-sale-container.component';
 const routes: Routes = [
   {
     path: 'auth',
@@ -64,7 +64,7 @@ const routes: Routes = [
         children: [
           {
             path: 'dashboard',
-            component: EnterpriseDashboardComponent
+            component: EnterpriseContainerComponent
           },
           {
             path: 'form',
@@ -85,7 +85,7 @@ const routes: Routes = [
           },
           {
             path: 'dashboard',
-            component: ProductDashboardComponent
+            component: ProductContainerComponent
           },
           {
             path: 'list',
@@ -94,11 +94,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'productOnSale',
+        path: 'product-on-sale',
         children: [
           {
             path: 'dashboard',
-            component: ProductOnSaleDashboardComponent
+            component: ProductOnSaleContainerComponent
           },
           {
             path: 'form',

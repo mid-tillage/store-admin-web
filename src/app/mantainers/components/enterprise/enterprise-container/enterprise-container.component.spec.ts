@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnterpriseDashboardComponent } from './enterprise-dashboard.component';
+import { EnterpriseContainerComponent } from './enterprise-container.component';
 
 describe('EnterpriseDashboardComponent', () => {
-  let component: EnterpriseDashboardComponent;
-  let fixture: ComponentFixture<EnterpriseDashboardComponent>;
+  let component: EnterpriseContainerComponent;
+  let fixture: ComponentFixture<EnterpriseContainerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EnterpriseDashboardComponent]
+      declarations: [EnterpriseContainerComponent]
     });
-    fixture = TestBed.createComponent(EnterpriseDashboardComponent);
+    fixture = TestBed.createComponent(EnterpriseContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

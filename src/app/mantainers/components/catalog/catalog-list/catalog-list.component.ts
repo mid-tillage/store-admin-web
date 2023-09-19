@@ -1,8 +1,6 @@
-import { AfterViewInit, Component, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
-import { MatTabGroup } from '@angular/material/tabs';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Catalog } from 'src/app/mantainers/models/catalog';
 import { CatalogService } from 'src/app/mantainers/services/catalog/catalog.service';
-import { CatalogContainerComponent } from '../catalog-container/catalog-container.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmActionComponent } from '../../shared/confirm-action/confirm-action.component';
@@ -56,6 +54,7 @@ export class CatalogListComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmActionComponent, { data: { name: catalog.name } });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        console.log('delete catalog: ' + catalog.idProductCatalog);
         this.catalogService.delete(catalog.idProductCatalog).subscribe({
           next: () => {
             this.catalogService.refreshCatalogs();

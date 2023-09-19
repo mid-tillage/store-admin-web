@@ -1,10 +1,10 @@
 export class Enterprise {
     
     constructor(enterprise: any) {
-        this.id = enterprise.id;
+        this.idEnterprise = enterprise.idEnterprise;
         this.name = enterprise.name;
     }
 
-    private id: number;
-    private name: string;
+    public idEnterprise: number;
+    public name: string;
 }

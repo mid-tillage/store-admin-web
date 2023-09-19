@@ -29,6 +29,7 @@ export class CatalogService {
   }
 
   getByName(name: string) {
+    console.log(name)
     return this.httpClient.post<Catalog>('http://localhost:3000/catalog/search', { name });
   }
 
