@@ -35,7 +35,7 @@ export class ProductOnSaleListComponent implements OnInit {
     });
   }
 
-  loadEnterprises(productsOnSale: ProductOnSale[]) {
+  loadProductsOnSale(productsOnSale: ProductOnSale[]) {
     this.productsOnSale = new MatTableDataSource(productsOnSale);
   }
 

@@ -1,4 +1,5 @@
 <form [formGroup]="productOnSaleForm" novalidate (ngSubmit)="onSubmit()">
+    <!-- ID -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
@@ -8,24 +9,27 @@
             </mat-form-field>
         </div>
     </div>
+
+    <!-- Sale Title -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Title</mat-label>
-                <input matInput placeholder="Name" formControlName="title"
-                    [formControl]="productOnSaleForm.controls['title']">
+                <input matInput placeholder="Name" formControlName="title" [formControl]="productOnSaleForm.controls['title']">
                 <mat-error *ngIf="productOnSaleForm.controls['title'].hasError('required')">
                     Title is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
     </div>
-    
+
+    <!-- Selected Product -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Product</mat-label>
-                <mat-select ngDefaultControl formControlName="product" [formControl]="productOnSaleForm.controls['product']">
+                <mat-select ngDefaultControl formControlName="product"
+                    [formControl]="productOnSaleForm.controls['product']">
                     <mat-option *ngFor="let product of products" [value]="product.idProduct">
                         {{product.name}}
                     </mat-option>
@@ -36,12 +40,14 @@
             </mat-form-field>
         </div>
     </div>
-    
+
+    <!-- Selected Catalog -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Catalog</mat-label>
-                <mat-select ngDefaultControl formControlName="catalog" [formControl]="productOnSaleForm.controls['catalog']">
+                <mat-select ngDefaultControl formControlName="catalog"
+                    [formControl]="productOnSaleForm.controls['catalog']">
                     <mat-option *ngFor="let catalog of catalogs" [value]="catalog.idProductCatalog">
                         {{catalog.name}}
                     </mat-option>
@@ -53,6 +59,7 @@
         </div>
     </div>
 
+    <!-- Sale Price -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
@@ -67,33 +74,38 @@
     </div>
 
     <div class="row">
+        <!-- Sale Start Datetime -->
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Sale start datetime</mat-label>
                 <input matInput [matDatepicker]="saleStartDatetime" formControlName="saleStartDatetime"
                     [formControl]="productOnSaleForm.controls['saleStartDatetime']">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="saleStartDatetime"></mat-datepicker-toggle>
-                    <mat-datepicker #saleStartDatetime></mat-datepicker>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="saleStartDatetime"></mat-datepicker-toggle>
+                <mat-datepicker #saleStartDatetime></mat-datepicker>
                 <mat-error *ngIf="productOnSaleForm.controls['saleStartDatetime'].hasError('required')">
                     Sale start datetime is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
+
+        <!-- Sale End Datetime -->
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Sale end datetime</mat-label>
                 <input matInput [matDatepicker]="saleEndDatetime" formControlName="saleEndDatetime"
                     [formControl]="productOnSaleForm.controls['saleEndDatetime']">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="saleEndDatetime"></mat-datepicker-toggle>
-                    <mat-datepicker #saleEndDatetime></mat-datepicker>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="saleEndDatetime"></mat-datepicker-toggle>
+                <mat-datepicker #saleEndDatetime></mat-datepicker>
                 <mat-error *ngIf="productOnSaleForm.controls['saleEndDatetime'].hasError('required')">
                     Sale end datetime is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
     </div>
+
+    <!-- Buttons -->
     <button mat-raised-button type="button" (click)="onBack()">Back</button>
     <button mat-raised-button color="primary" type="submit">{{buttonGloss}}</button>
 </form>

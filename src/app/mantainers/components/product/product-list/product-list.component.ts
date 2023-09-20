@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  loadEnterprises(products: Product[]) {
+  loadProducts(products: Product[]) {
     this.products = new MatTableDataSource(products);
   }
 
@@ -45,7 +45,12 @@ export class ProductListComponent implements OnInit {
   }
 
   updateProduct(product: Product) {
-    this.productService.setSelectedProduct(product);
+    // this.productService.setSelectedProduct(product);
+    this.productService.getById(product.idProduct).subscribe({
+      next: (data) => this.productService.setSelectedProduct(data),
+      error: console.error,
+      complete: () => console.debug('updateProduct completed')
+    });
     this.productService.setFormButtonGloss('Update');
     this.focusTabEvent.emit(1);
   }

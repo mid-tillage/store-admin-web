@@ -12,12 +12,12 @@ import { ProductService } from 'src/app/mantainers/services/product/product.serv
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  selectedValue: string = '';
-  enterprises: Enterprise[] = []
+  @Output() focusTabEvent = new EventEmitter<any>();
+
   private formBuilder = inject(FormBuilder);
 
-  @Output() focusTabEvent = new EventEmitter<any>();
   public product: Product = new Product({});
+  public enterprises: Enterprise[] = [];
   public buttonGloss: string = '';
   public productForm = this.formBuilder.group({
     idProduct: new FormControl(this.product.idProduct),
@@ -34,6 +34,10 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {
     this.productService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
+    this.enterpriseService.getAll().subscribe((data) => {
+      console.log({ enterpriseServiceGetAll: data });
+      this.enterprises = data;
+    });
     this.productService.selectedProduct.subscribe((product: Product) => {
       this.product = product;
       this.productForm = this.formBuilder.group({
@@ -42,11 +46,6 @@ export class ProductFormComponent implements OnInit {
         description: new FormControl(this.product.description, [Validators.required]),
         enterprise: new FormControl(this.product.enterprise?.idEnterprise, [Validators.required]),
       });
-      this.enterpriseService.getAll().subscribe((data) => {
-        console.log({ enterpriseServiceGetAll: data });
-        this.enterprises = data;
-      });
-      console.log('selectedProduct', this.product);
     });
   }
 

@@ -46,7 +46,6 @@ export class ProductOnSaleService {
   }
 
   setSelectedProductOnSale(productOnSale: ProductOnSale) {
-    console.log('setSelectedProductOnSale', { productOnSale });
     this.productOnSaleSource.next(productOnSale);
   }
 

@@ -25,7 +25,7 @@ export class ProductService {
   }
 
   getById(id: number) {
-    return this.httpClient.get('http://localhost:3000/product/' + id);
+    return this.httpClient.get<Product>('http://localhost:3000/product/' + id);
   }
 
   create(product: Product) {

@@ -1,4 +1,5 @@
 <form [formGroup]="productForm" novalidate (ngSubmit)="onSubmit()">
+    <!-- ID -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
@@ -8,6 +9,8 @@
             </mat-form-field>
         </div>
     </div>
+
+    <!-- Name -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
@@ -19,25 +22,27 @@
             </mat-form-field>
         </div>
     </div>
+
+    <!-- Description -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Description</mat-label>
-                <textarea  matInput placeholder="Description" formControlName="description" [formControl]="productForm.controls['description']" cdkTextareaAutosize=""></textarea>
+                <textarea matInput placeholder="Description" formControlName="description"
+                    [formControl]="productForm.controls['description']" cdkTextareaAutosize=""></textarea>
                 <mat-error *ngIf="productForm.controls['description'].hasError('required')">
                     Name is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
     </div>
+
+    <!-- Selected Enterprise -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Enterprise</mat-label>
-                <mat-select [(ngModel)]="selectedValue"
-                    name="enterprise"
-                    formControlName="enterprise"
-                    [formControl]="productForm.controls['enterprise']">
+                <mat-select ngDefaultControl formControlName="enterprise" [formControl]="productForm.controls['enterprise']">
                     <mat-option *ngFor="let enterprise of enterprises" [value]="enterprise.idEnterprise">
                         {{enterprise.name}}
                     </mat-option>
@@ -48,6 +53,8 @@
             </mat-form-field>
         </div>
     </div>
+
+    <!-- Buttons -->
     <button mat-raised-button type="button" (click)="onBack()">Back</button>
     <button mat-raised-button color="primary" type="submit">{{buttonGloss}}</button>
 </form>
