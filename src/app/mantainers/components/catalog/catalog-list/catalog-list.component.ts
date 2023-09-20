@@ -1,20 +1,23 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Catalog } from 'src/app/mantainers/models/catalog';
 import { CatalogService } from 'src/app/mantainers/services/catalog/catalog.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmActionComponent } from '../../shared/confirm-action/confirm-action.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-catalog-list',
   templateUrl: './catalog-list.component.html',
   styleUrls: ['./catalog-list.component.css']
 })
-export class CatalogListComponent implements OnInit {
+export class CatalogListComponent implements OnInit, OnDestroy {
   @Output() focusTabEvent = new EventEmitter<any>();
 
   message: string = '';
+  private catalogSubscription!: Subscription;
+  private buttonGlossSubscription!: Subscription;
 
   public catalogs = new MatTableDataSource<Catalog>([]);
   public displayedColumns: string[] = ['id', 'name', 'actions'];
@@ -26,13 +29,18 @@ export class CatalogListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.catalogService.currentFormButtonGloss.subscribe(message => this.message = message);
-    this.catalogService.catalogs.subscribe(catalogs => this.catalogs = new MatTableDataSource(catalogs));
+    this.catalogSubscription = this.catalogService.currentFormButtonGloss.subscribe(message => this.message = message);
+    this.buttonGlossSubscription = this.catalogService.catalogs.subscribe(catalogs => this.catalogs = new MatTableDataSource(catalogs));
     // An example to retrieve all the catalogs of the table.
     this.catalogService.getAll().subscribe((data) => {
       console.log({ catalogServiceGetAll: data });
       this.catalogs = new MatTableDataSource(data);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.catalogSubscription.unsubscribe();
+    this.buttonGlossSubscription.unsubscribe();
   }
 
   loadCatalogs(catalogs: Catalog[]) {

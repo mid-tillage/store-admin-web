@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { Enterprise } from 'src/app/mantainers/models/enterprise';
 import { Product } from 'src/app/mantainers/models/product';
 import { EnterpriseService } from 'src/app/mantainers/services/enterprise/enterprise.service';
@@ -11,10 +12,12 @@ import { ProductService } from 'src/app/mantainers/services/product/product.serv
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
   @Output() focusTabEvent = new EventEmitter<any>();
 
   private formBuilder = inject(FormBuilder);
+  private productSubscription!: Subscription;
+  private buttonGlossSubscription!: Subscription;
 
   public product: Product = new Product({});
   public enterprises: Enterprise[] = [];
@@ -38,7 +41,7 @@ export class ProductFormComponent implements OnInit {
       console.log({ enterpriseServiceGetAll: data });
       this.enterprises = data;
     });
-    this.productService.selectedProduct.subscribe((product: Product) => {
+    this.productSubscription = this.productService.selectedProduct.subscribe((product: Product) => {
       this.product = product;
       this.productForm = this.formBuilder.group({
         idProduct: new FormControl(this.product.idProduct),
@@ -47,6 +50,11 @@ export class ProductFormComponent implements OnInit {
         enterprise: new FormControl(this.product.enterprise?.idEnterprise, [Validators.required]),
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
+    this.buttonGlossSubscription.unsubscribe();
   }
 
   onBack() {

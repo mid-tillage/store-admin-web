@@ -19,7 +19,8 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
   @Output() focusTabEvent = new EventEmitter<any>();
 
   private formBuilder = inject(FormBuilder);
-  private productSubscription: Subscription;
+  private productOnSaleSubscription: Subscription;
+  private buttonGlossSubscription!: Subscription;
 
   public productOnSale: ProductOnSale = new ProductOnSale({});
   public products: Product[] = [];
@@ -41,7 +42,7 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
     private catalogService: CatalogService,
     private _snackBar: MatSnackBar
   ) {
-    this.productSubscription = this.productOnSaleService.selectedProductOnSale.subscribe((productOnSale: ProductOnSale) => {
+    this.productOnSaleSubscription = this.productOnSaleService.selectedProductOnSale.subscribe((productOnSale: ProductOnSale) => {
       this.productOnSale = productOnSale;
       this.productOnSaleForm = this.formBuilder.group({
         idProductOnSale: new FormControl(this.productOnSale.idProductOnSale),
@@ -56,7 +57,7 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.productOnSaleService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
+    this.buttonGlossSubscription = this.productOnSaleService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss );
     this.productService.getAll().subscribe((data) => {
       console.log({ productServiceGetAll: data });
       this.products = data;
@@ -68,7 +69,8 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.productSubscription.unsubscribe();
+    this.productOnSaleSubscription.unsubscribe();
+    this.buttonGlossSubscription.unsubscribe();
   }
 
   onBack() {

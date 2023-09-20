@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -11,10 +11,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './catalog-form.component.html',
   styleUrls: ['./catalog-form.component.css']
 })
-export class CatalogFormComponent implements OnInit {
-  private formBuilder = inject(FormBuilder);
-
+export class CatalogFormComponent implements OnInit, OnDestroy {
   @Output() focusTabEvent = new EventEmitter<any>();
+
+  private formBuilder = inject(FormBuilder);
+  private catalogSubscription!: Subscription;
+  private buttonGlossSubscription!: Subscription;
+
   public catalog: Catalog = new Catalog({});
   public buttonGloss: string = '';
   public catalogForm = this.formBuilder.group({
@@ -29,8 +32,8 @@ export class CatalogFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.catalogService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
-    this.catalogService.selectedCatalog.subscribe((catalog: Catalog) => {
+    this.buttonGlossSubscription = this.catalogService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
+    this.catalogSubscription = this.catalogService.selectedCatalog.subscribe((catalog: Catalog) => {
       this.catalog = catalog;
       this.catalogForm = this.formBuilder.group({
         idProductCatalog: new FormControl(this.catalog.idProductCatalog),
@@ -38,6 +41,11 @@ export class CatalogFormComponent implements OnInit {
       });
       console.log('selectedCatalog', this.catalog);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.catalogSubscription.unsubscribe();
+    this.buttonGlossSubscription.unsubscribe();
   }
 
   onBack() {
