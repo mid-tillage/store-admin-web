@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { Enterprise } from 'src/app/mantainers/models/enterprise';
 import { EnterpriseService } from 'src/app/mantainers/services/enterprise/enterprise.service';
 
@@ -9,10 +10,13 @@ import { EnterpriseService } from 'src/app/mantainers/services/enterprise/enterp
   templateUrl: './enterprise-form.component.html',
   styleUrls: ['./enterprise-form.component.css']
 })
-export class EnterpriseFormComponent implements OnInit {
-  private formBuilder = inject(FormBuilder);
-
+export class EnterpriseFormComponent implements OnInit, OnDestroy {
   @Output() focusTabEvent = new EventEmitter<any>();
+
+  private formBuilder = inject(FormBuilder);
+  private buttonGlossSubscription!: Subscription;
+  private enterpriseSubscription!: Subscription;
+
   public enterprise: Enterprise = new Enterprise({});
   public buttonGloss: string = '';
   public enterpriseForm = this.formBuilder.group({
@@ -26,8 +30,8 @@ export class EnterpriseFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.enterpriseService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
-    this.enterpriseService.selectedEnterprise.subscribe((enterprise: Enterprise) => {
+    this.buttonGlossSubscription = this.enterpriseService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
+    this.enterpriseSubscription = this.enterpriseService.selectedEnterprise.subscribe((enterprise: Enterprise) => {
       this.enterprise = enterprise;
       this.enterpriseForm = this.formBuilder.group({
         idEnterprise: new FormControl(this.enterprise.idEnterprise),
@@ -35,6 +39,11 @@ export class EnterpriseFormComponent implements OnInit {
       });
       console.log('selectedEnterprise', this.enterprise);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.buttonGlossSubscription.unsubscribe();
+    this.enterpriseSubscription.unsubscribe();
   }
 
   onBack() {

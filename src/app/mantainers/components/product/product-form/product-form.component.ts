@@ -36,7 +36,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.productService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
+    this.buttonGlossSubscription = this.productService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
     this.enterpriseService.getAll().subscribe((data) => {
       console.log({ enterpriseServiceGetAll: data });
       this.enterprises = data;

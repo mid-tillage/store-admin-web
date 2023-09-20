@@ -1,19 +1,22 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductOnSale } from 'src/app/mantainers/models/product-on-sale';
 import { ProductOnSaleService } from 'src/app/mantainers/services/product-on-sale/product-on-sale.service';
 import { ConfirmActionComponent } from '../../shared/confirm-action/confirm-action.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-on-sale-list',
   templateUrl: './product-on-sale-list.component.html',
   styleUrls: ['./product-on-sale-list.component.css']
 })
-export class ProductOnSaleListComponent implements OnInit {
+export class ProductOnSaleListComponent implements OnInit, OnDestroy {
   @Output() focusTabEvent = new EventEmitter<any>();
 
+  private productOnSaleSubscription!: Subscription;
+  private buttonGlossSubscription!: Subscription;
   message: string = '';
 
   public productsOnSale = new MatTableDataSource<ProductOnSale>([]);
@@ -26,13 +29,18 @@ export class ProductOnSaleListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productOnSaleService.currentFormButtonGloss.subscribe(message => this.message = message);
-    this.productOnSaleService.productOnSales.subscribe(productsOnSale => this.productsOnSale = new MatTableDataSource(productsOnSale));
+    this.buttonGlossSubscription = this.productOnSaleService.currentFormButtonGloss.subscribe(message => this.message = message);
+    this.productOnSaleSubscription = this.productOnSaleService.productOnSales.subscribe(productsOnSale => this.productsOnSale = new MatTableDataSource(productsOnSale));
     // An example to retrieve all the products on sale to the table.
     this.productOnSaleService.getAll().subscribe((data) => {
       console.log({ productOnSaleServiceGetAll: data });
       this.productsOnSale = new MatTableDataSource(data);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.productOnSaleSubscription.unsubscribe();
+    this.buttonGlossSubscription.unsubscribe();
   }
 
   loadProductsOnSale(productsOnSale: ProductOnSale[]) {
