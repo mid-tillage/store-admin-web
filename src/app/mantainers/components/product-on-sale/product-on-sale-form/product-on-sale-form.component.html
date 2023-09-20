@@ -15,7 +15,8 @@
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Title</mat-label>
-                <input matInput placeholder="Name" formControlName="title" [formControl]="productOnSaleForm.controls['title']">
+                <input matInput placeholder="Name" formControlName="title"
+                    [formControl]="productOnSaleForm.controls['title']">
                 <mat-error *ngIf="productOnSaleForm.controls['title'].hasError('required')">
                     Title is <strong>required</strong>
                 </mat-error>
@@ -100,6 +101,9 @@
                 <mat-datepicker #saleEndDatetime></mat-datepicker>
                 <mat-error *ngIf="productOnSaleForm.controls['saleEndDatetime'].hasError('required')">
                     Sale end datetime is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="productOnSaleForm.controls.saleEndDatetime.errors?.['endDateIsPast']">
+                    Please enter an end date that is after the start date.
                 </mat-error>
             </mat-form-field>
         </div>

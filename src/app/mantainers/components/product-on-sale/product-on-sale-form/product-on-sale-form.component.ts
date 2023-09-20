@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { Catalog } from 'src/app/mantainers/models/catalog';
 import { Product } from 'src/app/mantainers/models/product';
@@ -30,8 +31,8 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
     product: new FormControl(this.productOnSale.product?.idProduct, [Validators.required]),
     catalog: new FormControl(this.productOnSale.catalog?.idProductCatalog, [Validators.required]),
     price: new FormControl(this.productOnSale.price, [Validators.required]),
-    saleStartDatetime: new FormControl(this.productOnSale.saleStartDatetime, [Validators.required]),
-    saleEndDatetime: new FormControl(this.productOnSale.saleEndDatetime, [Validators.required]),
+    saleStartDatetime: new FormControl(this.productOnSale.saleStartDatetime, [Validators.required, this.startDateValidator]),
+    saleEndDatetime: new FormControl(this.productOnSale.saleEndDatetime, [Validators.required, this.endDateValidator]),
   });
 
   constructor(
@@ -48,8 +49,8 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
         product: new FormControl(this.productOnSale.product?.idProduct, [Validators.required]),
         catalog: new FormControl(this.productOnSale.catalog?.idProductCatalog, [Validators.required]),
         price: new FormControl(this.productOnSale.price, [Validators.required]),
-        saleStartDatetime: new FormControl(this.productOnSale.saleStartDatetime, [Validators.required]),
-        saleEndDatetime: new FormControl(this.productOnSale.saleEndDatetime, [Validators.required]),
+        saleStartDatetime: new FormControl(this.productOnSale.saleStartDatetime, [Validators.required, this.startDateValidator]),
+        saleEndDatetime: new FormControl(this.productOnSale.saleEndDatetime, [Validators.required, this.endDateValidator]),
       });
     });
   }
@@ -123,5 +124,19 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
     this.productOnSaleForm.reset();
     this.productOnSaleService.refreshProductOnSales();
     this.focusTabEvent.emit({ index: 0, gloss: 'Create' });
+  }
+
+  private startDateValidator(control: FormControl): { [s: string]: any } | null {
+    if (control.value && control.value > new Date()) {
+      return { startDateIsFuture: true };
+    }
+    return null;
+  }
+
+  private endDateValidator(control: FormControl): { [s: string]: any } | null {
+    if (control.value && control.value < new Date()) {
+      return { endDateIsPast: true };
+    }
+    return null;
   }
 }
