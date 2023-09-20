@@ -1,10 +1,11 @@
+import { Catalog } from "./catalog";
 import { Product } from "./product";
 
 export class ProductOnSale {
     constructor(productOnSale: any) {
         this.idProductOnSale = productOnSale.idProductOnSale;
         this.product = productOnSale.product;
-        this.catalogId = productOnSale.catalogId;
+        this.catalog = productOnSale.catalog;
         this.title = productOnSale.title;
         this.price = productOnSale.price;
         this.saleStartDatetime = productOnSale.saleStartDatetime;
@@ -13,7 +14,7 @@ export class ProductOnSale {
 
     public idProductOnSale: number;
     public product: Product;
-    public catalogId: number;
+    public catalog: Catalog;
     public title: string;
     public price: number;
     public saleStartDatetime: string;

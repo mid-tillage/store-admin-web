@@ -23,7 +23,7 @@ export class ProductFormComponent implements OnInit {
     idProduct: new FormControl(this.product.idProduct),
     name: new FormControl(this.product.name, [Validators.required]),
     description: new FormControl(this.product.description, [Validators.required]),
-    enterprise: new FormControl(this.product.enterpriseId, [Validators.required]),
+    enterprise: new FormControl(this.product.enterprise?.idEnterprise, [Validators.required]),
   });
 
   constructor(
@@ -40,7 +40,7 @@ export class ProductFormComponent implements OnInit {
         idProduct: new FormControl(this.product.idProduct),
         name: new FormControl(this.product.name, [Validators.required]),
         description: new FormControl(this.product.description, [Validators.required]),
-        enterprise: new FormControl(this.product.enterpriseId, [Validators.required]),
+        enterprise: new FormControl(this.product.enterprise?.idEnterprise, [Validators.required]),
       });
       this.enterpriseService.getAll().subscribe((data) => {
         console.log({ enterpriseServiceGetAll: data });

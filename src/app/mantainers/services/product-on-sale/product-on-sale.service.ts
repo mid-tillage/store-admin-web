@@ -26,7 +26,7 @@ export class ProductOnSaleService {
   }
 
   getById(id: number) {
-    return this.httpClient.get('http://localhost:3000/product-on-sale/' + id);
+    return this.httpClient.get<ProductOnSale>('http://localhost:3000/product-on-sale/' + id);
   }
 
   create(product: ProductOnSale) {
@@ -46,6 +46,7 @@ export class ProductOnSaleService {
   }
 
   setSelectedProductOnSale(productOnSale: ProductOnSale) {
+    console.log('setSelectedProductOnSale', { productOnSale });
     this.productOnSaleSource.next(productOnSale);
   }
 

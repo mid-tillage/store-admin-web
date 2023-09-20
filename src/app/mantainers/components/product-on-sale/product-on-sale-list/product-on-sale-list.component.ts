@@ -44,8 +44,12 @@ export class ProductOnSaleListComponent implements OnInit {
     this.productsOnSale.filter = filterValue.trim().toLowerCase();
   }
 
-  updateProductOnSale(productsOnSale: ProductOnSale) {
-    this.productOnSaleService.setSelectedProductOnSale(productsOnSale);
+  updateProductOnSale(productOnSale: ProductOnSale) {
+    this.productOnSaleService.getById(productOnSale.idProductOnSale).subscribe({
+      next: (data) => this.productOnSaleService.setSelectedProductOnSale(data),
+      error: console.error,
+      complete: () => console.debug('updateProductOnSale completed')
+    });
     this.productOnSaleService.setFormButtonGloss('Update');
     this.focusTabEvent.emit(1);
   }

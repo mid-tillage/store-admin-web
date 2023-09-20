@@ -20,6 +20,39 @@
             </mat-form-field>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Product</mat-label>
+                <mat-select ngDefaultControl formControlName="product" [formControl]="productOnSaleForm.controls['product']">
+                    <mat-option *ngFor="let product of products" [value]="product.idProduct">
+                        {{product.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="productOnSaleForm.controls['product'].hasError('required')">
+                    Product is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Catalog</mat-label>
+                <mat-select ngDefaultControl formControlName="catalog" [formControl]="productOnSaleForm.controls['catalog']">
+                    <mat-option *ngFor="let catalog of catalogs" [value]="catalog.idProductCatalog">
+                        {{catalog.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="productOnSaleForm.controls['catalog'].hasError('required')">
+                    Catalog is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
@@ -27,11 +60,12 @@
                 <input matInput placeholder="$" formControlName="price"
                     [formControl]="productOnSaleForm.controls['price']">
                 <mat-error *ngIf="productOnSaleForm.controls['price'].hasError('required')">
-                    Title is <strong>required</strong>
+                    Price is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
     </div>
+
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
@@ -42,7 +76,7 @@
                     <mat-datepicker-toggle matIconSuffix [for]="saleStartDatetime"></mat-datepicker-toggle>
                     <mat-datepicker #saleStartDatetime></mat-datepicker>
                 <mat-error *ngIf="productOnSaleForm.controls['saleStartDatetime'].hasError('required')">
-                    Title is <strong>required</strong>
+                    Sale start datetime is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -55,7 +89,7 @@
                     <mat-datepicker-toggle matIconSuffix [for]="saleEndDatetime"></mat-datepicker-toggle>
                     <mat-datepicker #saleEndDatetime></mat-datepicker>
                 <mat-error *ngIf="productOnSaleForm.controls['saleEndDatetime'].hasError('required')">
-                    Title is <strong>required</strong>
+                    Sale end datetime is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>

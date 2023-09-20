@@ -44,8 +44,8 @@ export class ProductListComponent implements OnInit {
     this.products.filter = filterValue.trim().toLowerCase();
   }
 
-  updateProduct(enteprises: Product) {
-    this.productService.setSelectedProduct(enteprises);
+  updateProduct(product: Product) {
+    this.productService.setSelectedProduct(product);
     this.productService.setFormButtonGloss('Update');
     this.focusTabEvent.emit(1);
   }

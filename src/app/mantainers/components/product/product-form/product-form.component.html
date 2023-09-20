@@ -30,26 +30,21 @@
             </mat-form-field>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col">
-            <mat-form-field class="full-width">
-                <mat-label>Enterprise</mat-label>
-                <input matInput placeholder="Enterprise" formControlName="enterprise" [formControl]="productForm.controls['enterprise']">
-                <mat-error *ngIf="productForm.controls['enterprise'].hasError('required')">
-                    Enterprise is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div> -->
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Enterprise</mat-label>
-                <mat-select [(ngModel)]="selectedValue" name="enterprise" formControlName="enterprise" [formControl]="productForm.controls['enterprise']">
-                <mat-option *ngFor="let enterprise of enterprises" [value]="enterprise.name">
-                    {{enterprise.name}}
-                </mat-option>
+                <mat-select [(ngModel)]="selectedValue"
+                    name="enterprise"
+                    formControlName="enterprise"
+                    [formControl]="productForm.controls['enterprise']">
+                    <mat-option *ngFor="let enterprise of enterprises" [value]="enterprise.idEnterprise">
+                        {{enterprise.name}}
+                    </mat-option>
                 </mat-select>
+                <mat-error *ngIf="productForm.controls['enterprise'].hasError('required')">
+                    State is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
         </div>
     </div>
