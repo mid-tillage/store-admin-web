@@ -21,28 +21,28 @@ export class CatalogService {
   }
 
   getAll() {
-    return this.httpClient.get<Catalog[]>('http://localhost:3000/catalog');
+    return this.httpClient.get<Catalog[]>('http://localhost:3040/catalog');
   }
 
   getById(id: number) {
-    return this.httpClient.get('http://localhost:3000/catalog/' + id);
+    return this.httpClient.get('http://localhost:3040/catalog/' + id);
   }
 
   getByName(name: string) {
     console.log(name)
-    return this.httpClient.post<Catalog>('http://localhost:3000/catalog/search', { name });
+    return this.httpClient.post<Catalog>('http://localhost:3040/catalog/search', { name });
   }
 
   create(catalog: Catalog) {
-    return this.httpClient.post<Catalog>('http://localhost:3000/catalog', catalog);
+    return this.httpClient.post<Catalog>('http://localhost:3040/catalog', catalog);
   }
 
   update(id: number, catalog: Catalog) {
-    return this.httpClient.patch('http://localhost:3000/catalog/' + id, catalog);
+    return this.httpClient.patch('http://localhost:3040/catalog/' + id, catalog);
   }
 
   delete(id: number) {
-    return this.httpClient.delete('http://localhost:3000/catalog/' + id);
+    return this.httpClient.delete('http://localhost:3040/catalog/' + id);
   }
 
   setTabIndex(event: MatTabGroup) {
@@ -62,7 +62,7 @@ export class CatalogService {
   }
 
   refreshCatalogs(): void {
-    this.httpClient.get<Catalog[]>('http://localhost:3000/catalog').subscribe({
+    this.httpClient.get<Catalog[]>('http://localhost:3040/catalog').subscribe({
       next: (catalogs) => this.catalogsSource.next(catalogs),
       error: console.error,
       complete: () => console.debug('catalogService.refreshCatalogs finished')

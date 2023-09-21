@@ -57,7 +57,7 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.buttonGlossSubscription = this.productOnSaleService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss );
+    this.buttonGlossSubscription = this.productOnSaleService.currentFormButtonGloss.subscribe(gloss => this.buttonGloss = gloss);
     this.productService.getAll().subscribe((data) => {
       console.log({ productServiceGetAll: data });
       this.products = data;
@@ -80,7 +80,14 @@ export class ProductOnSaleFormComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log('this.productOnSaleService.valid', this.productOnSaleForm.valid);
     if (!this.productOnSaleForm.valid) return;
-    const productOnSale: ProductOnSale = new ProductOnSale(this.productOnSaleForm.value);
+
+    const productOnSale: ProductOnSale = new ProductOnSale({
+      ...this.productOnSaleForm.value,
+      product: this.products.filter((product) => product.idProduct == this.productOnSaleForm.value.product)[0],
+      catalog: this.catalogs.filter((catalog) => catalog.idProductCatalog == this.productOnSaleForm.value.catalog)[0]
+    });
+
+    console.log('product on sale to create: ', productOnSale);
     if (this.buttonGloss === 'Create') {
       this.productOnSaleService.create(productOnSale).subscribe({
         next: (data) => {

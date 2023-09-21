@@ -21,24 +21,24 @@ export class EnterpriseService {
   constructor(private readonly httpClient: HttpClient) { }
 
   getAll() {
-    return this.httpClient.get<Enterprise[]>('http://localhost:3000/enterprise');
+    return this.httpClient.get<Enterprise[]>('http://localhost:3040/enterprise');
   }
 
   getById(id: number) {
-    return this.httpClient.get('http://localhost:3000/enterprise/' + id);
+    return this.httpClient.get('http://localhost:3040/enterprise/' + id);
   }
 
   create(enterprise: Enterprise) {
     console.log({enterprise})
-    return this.httpClient.post<Enterprise>('http://localhost:3000/enterprise', enterprise);
+    return this.httpClient.post<Enterprise>('http://localhost:3040/enterprise', enterprise);
   }
 
   update(id: number, enterprise: Enterprise) {
-    return this.httpClient.patch('http://localhost:3000/enterprise/' + id, enterprise);
+    return this.httpClient.patch('http://localhost:3040/enterprise/' + id, enterprise);
   }
 
   delete(id: number) {
-    return this.httpClient.delete('http://localhost:3000/enterprise/' + id);
+    return this.httpClient.delete('http://localhost:3040/enterprise/' + id);
   }
 
   setTabIndex(event: MatTabGroup) {
@@ -58,7 +58,7 @@ export class EnterpriseService {
   }
 
   refreshEnterprises(): void {
-    this.httpClient.get<Enterprise[]>('http://localhost:3000/enterprise').subscribe({
+    this.httpClient.get<Enterprise[]>('http://localhost:3040/enterprise').subscribe({
       next: (enterprises) => this.enterprisesSource.next(enterprises),
       error: console.error,
       complete: () => console.debug('enterpriseService.refreshEnteprises finished')

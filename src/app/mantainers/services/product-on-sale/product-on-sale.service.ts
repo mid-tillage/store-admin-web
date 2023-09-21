@@ -22,23 +22,23 @@ export class ProductOnSaleService {
   constructor(private readonly httpClient: HttpClient) { }
 
   getAll() {
-    return this.httpClient.get<ProductOnSale[]>('http://localhost:3000/product-on-sale');
+    return this.httpClient.get<ProductOnSale[]>('http://localhost:3040/product-on-sale');
   }
 
   getById(id: number) {
-    return this.httpClient.get<ProductOnSale>('http://localhost:3000/product-on-sale/' + id);
+    return this.httpClient.get<ProductOnSale>('http://localhost:3040/product-on-sale/' + id);
   }
 
   create(product: ProductOnSale) {
-    return this.httpClient.post<ProductOnSale>('http://localhost:3000/product-on-sale', product);
+    return this.httpClient.post<ProductOnSale>('http://localhost:3040/product-on-sale', product);
   }
 
   update(id: number, product: ProductOnSale) {
-    return this.httpClient.patch('http://localhost:3000/product-on-sale/' + id, product);
+    return this.httpClient.patch('http://localhost:3040/product-on-sale/' + id, product);
   }
 
   delete(id: number) {
-    return this.httpClient.delete('http://localhost:3000/product-on-sale/' + id);
+    return this.httpClient.delete('http://localhost:3040/product-on-sale/' + id);
   }
 
   setTabIndex(event: MatTabGroup) {
@@ -58,7 +58,7 @@ export class ProductOnSaleService {
   }
 
   refreshProductOnSales(): void {
-    this.httpClient.get<ProductOnSale[]>('http://localhost:3000/product-on-sale').subscribe({
+    this.httpClient.get<ProductOnSale[]>('http://localhost:3040/product-on-sale').subscribe({
       next: (products) => this.productOnSalesSource.next(products),
       error: console.error,
       complete: () => console.debug('productOnSaleService.refreshProductsOnSale finished')

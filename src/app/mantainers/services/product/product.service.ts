@@ -21,23 +21,23 @@ export class ProductService {
   constructor(private readonly httpClient: HttpClient) { }
 
   getAll() {
-    return this.httpClient.get<Product[]>('http://localhost:3000/product');
+    return this.httpClient.get<Product[]>('http://localhost:3040/product');
   }
 
   getById(id: number) {
-    return this.httpClient.get<Product>('http://localhost:3000/product/' + id);
+    return this.httpClient.get<Product>('http://localhost:3040/product/' + id);
   }
 
   create(product: Product) {
-    return this.httpClient.post<Product>('http://localhost:3000/product', product);
+    return this.httpClient.post<Product>('http://localhost:3040/product', product);
   }
 
   update(id: number, product: Product) {
-    return this.httpClient.patch('http://localhost:3000/product/' + id, product);
+    return this.httpClient.patch('http://localhost:3040/product/' + id, product);
   }
 
   delete(id: number) {
-    return this.httpClient.delete('http://localhost:3000/product/' + id);
+    return this.httpClient.delete('http://localhost:3040/product/' + id);
   }
 
   setTabIndex(event: MatTabGroup) {
@@ -57,7 +57,7 @@ export class ProductService {
   }
 
   refreshProducts(): void {
-    this.httpClient.get<Product[]>('http://localhost:3000/product').subscribe({
+    this.httpClient.get<Product[]>('http://localhost:3040/product').subscribe({
       next: (products) => this.productsSource.next(products),
       error: console.error,
       complete: () => console.debug('productService.refreshProducts finished')
